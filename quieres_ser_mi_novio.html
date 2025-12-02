@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>¿Quieres ser mi novio?</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #a3c7ff, #ffc7e6);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hearts {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .heart {
+    position: absolute;
+    font-size: 20px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-100vh) scale(1.8); opacity: 0; }
+  }
+
+  .container {
+    background: rgba(255,255,255,0.6);
+    padding: 40px;
+    border-radius: 25px;
+    border: 2px solid rgba(255,255,255,0.45);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    text-align: center;
+    z-index: 2;
+    animation: fadeIn 1.5s ease;
+    width: 80%;
+    max-width: 450px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  button {
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .yes {
+    background-color: #ff69b4;
+    color: white;
+  }
+  .yes:hover {
+    background-color: #ff2f75;
+    transform: scale(1.1);
+  }
+
+  .no {
+    background-color: #ffd1dc;
+    color: #ff2f75;
+  }
+  .no:hover {
+    background-color: #ffb6c9;
+    transform: scale(1.1);
+  }
+
+  .screen { display: none; }
+  .active { display: block; }
+
+</style>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<div class="container screen active" id="screen1">
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" style="width:120px; margin-bottom:15px;" />
+  <h1 style="font-size:30px; color:#ff2f75; line-height:1.4;">
+    Gracias por estar a mi lado.<br>
+    Te quiero mucho y eres una persona muy especial para mí.<br><br>
+    <strong>¿Quieres ser mi novio?</strong>
+  </h1>
+  <button class="yes" onclick="showScreen('screen3')">Sí 💕</button>
+  <button class="no" onclick="showScreen('screen2')">No 😢</button>
+</div>
+
+<div class="container screen" id="screen2">
+  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" style="width:120px; margin-bottom:15px;" />
+  <h1 style="font-size:26px; color:#ff2f75; line-height:1.4;">
+    ¿Estás seguro de que no quieres ser mi novio? 🥺
+  </h1>
+  <button class="yes" onclick="showScreen('screen3')">Bueno… sí 💕</button>
+  <button class="no" onclick="alert('Está bien… pero me dolió 😭')">Sigo diciendo que no</button>
+</div>
+
+<div class="container screen" id="screen3">
+  <img src="https://media.giphy.com/media/11sBLVxNs7v6WA/giphy.gif" style="width:140px; margin-bottom:15px;" />
+  <h1 style="font-size:28px; color:#ff2f75;">¡Yay! 💞</h1>
+  <p style="font-size:20px; color:#ff2f75;">
+    Eres una de las mejores cosas que me han pasado. 💙💗<br><br>
+    Gracias por elegirme y por estar aquí.<br>
+    Prometo darte cariño, risas y compañía bonita<br>
+    todos los días. ✨💞
+  </p>
+</div>
+
+<button id="playMusic" style="position:fixed; bottom:20px; left:20px; padding:12px 20px; font-size:16px; background:#ff2f75; color:white; border:none; border-radius:12px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.2); z-index:20;">🎵 Reproducir canción</button>
+
+<audio id="bgMusic" src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/KarolG/Que_Hubiera_Sido/KarolG_-_Que_Hubiera_Sido.mp3" preload="auto"></audio>
+
+<script>
+function showScreen(screenId) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(screenId).classList.add('active');
+}
+
+function createHearts() {
+  const hearts = document.getElementById('hearts');
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.innerHTML = '💖';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+    heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+    hearts.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+  }, 400);
+}
+createHearts();
+
+const btn = document.getElementById('playMusic');
+const audio = document.getElementById('bgMusic');
+btn.addEventListener('click', () => {
+  audio.play();
+  btn.style.display = 'none';
+});
+</script>
+
+</body>
+</html>
